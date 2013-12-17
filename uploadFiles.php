@@ -4,11 +4,9 @@ $a_extensions_authorized = array('.zip', '.pdf', '.txt', '.xml', '.csv', '.rss',
 
 require_once 'simpleUploader.php';
 
-//var_dump($_FILES);
+$o_uploader = new simpleUploader;
 
 foreach($_FILES as $s_html_file_name => $a_file):
-
-	$o_uploader = new simpleUploader;
 
 	$m_return = $o_uploader->upload($a_file, getcwd().DIRECTORY_SEPARATOR.'upload-dir', $a_extensions_authorized);
 
