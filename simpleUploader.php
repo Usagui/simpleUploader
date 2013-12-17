@@ -9,7 +9,7 @@ class simpleUploader
 {
 	const DS = DIRECTORY_SEPARATOR;
 
-	public $a_upload_error_const, $a_error_msgs;
+	public $a_upload_error_const, $s_error_msgs;
 
 	private $s_regexp_pattern;
 
@@ -22,7 +22,7 @@ class simpleUploader
 											UPLOAD_ERR_PARTIAL => 'The file was only partially uploaded.',
 											UPLOAD_ERR_NO_FILE => 'Select a file.',
 											UPLOAD_ERR_NO_TMP_DIR => 'A temporary folder is missing. Introduced in PHP 5.0.3.',
-											UPLOAD_ERR_CANT_WRITE => "Failed to write file to disk. Introduced in PHP 5.1.0.",
+											UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk. Introduced in PHP 5.1.0.',
 											UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload. PHP offers no way to determine which extension is involved.');
 		
 	}
@@ -35,7 +35,7 @@ class simpleUploader
 				if(!is_dir($p2_s_upload_dest_dir))
 				{
 
-					if(!@mkdir($p2_s_upload_dest_dir, 0777, TRUE)) return 'Impossible to create destination upload dir, check write permisions!)';
+					if(!@mkdir($p2_s_upload_dest_dir, 0777, TRUE)) return 'Impossible to create destination upload dir, check write permisions!';
 				}
 
 				$s_ext_uploaded_file = strtolower(strrchr($p1_a_files['name'], '.'));
@@ -95,9 +95,9 @@ class simpleUploader
 			 					{
 			 						return TRUE;
 
-			 					}else $this->a_error_msgs = 'Unable to remove uploaded zip! (But all authorized files were uploaded and extracted)';
+			 					}else $this->s_error_msgs = 'Unable to remove uploaded zip! (But all authorized files were uploaded and extracted)';
 
-							}else $this->a_error_msgs = 'Server failed to upload your file! (move_uploaded_file function)';
+							}else $this->s_error_msgs = 'Server failed to upload your file! (move_uploaded_file function)';
 
 					}else
 					{
@@ -107,17 +107,17 @@ class simpleUploader
 						{
 							return TRUE;
 
-						}else $this->a_error_msgs = 'Server failed to upload your file! (move_uploaded_file function)';
+						}else $this->s_error_msgs = 'Server failed to upload your file! (move_uploaded_file function)';
 
 					}
 
-				}else $this->a_error_msgs = 'File extension ('.$s_ext_uploaded_file.') is not allowed on the server!';
+				}else $this->s_error_msgs = 'File extension ('.$s_ext_uploaded_file.') is not allowed on the server!';
 
-		}else $this->a_error_msgs = $this->a_upload_error_const[$p1_a_files['error']];
+		}else $this->s_error_msgs = $this->a_upload_error_const[$p1_a_files['error']];
 
-		if($this->a_error_msgs !== NULL && !empty($this->a_error_msgs))
+		if($this->s_error_msgs !== NULL && !empty($this->s_error_msgs))
 		{
-			return $this->a_error_msgs;
+			return $this->s_error_msgs;
 
 		}else return 'Something not expected happened...';
 
